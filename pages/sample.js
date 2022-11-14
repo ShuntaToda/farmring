@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Yamde from "yamde";
-import "bootstrap/dist/css/bootstrap.css";
 import { useRemark } from "react-remark";
 
 const sample = () => {
@@ -8,8 +7,8 @@ const sample = () => {
   const [reactContent, setMarkdownSource] = useRemark();
 
   const aaa = (e) => {
-    setText(e);
     console.log(text);
+    setText(e);
     setMarkdownSource(text);
   };
   return (
