@@ -1,0 +1,27 @@
+.l-header {
+  background: white;
+  display: flex;
+  height: 80px;
+  justify-content: space-between;
+  @media (max-width: 950px) {
+    height: 60px;
+  }
+  &__logo {
+    height: 100%;
+    width: 200px;
+    padding: 0 20px;
+    margin: 0;
+    @media (max-width: 950px) {
+      width: 150px;
+    }
+    > a {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      > img {
+        width: 100%;
+      }
+    }
+  }
+}

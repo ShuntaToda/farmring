@@ -22,18 +22,20 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="c-articles">
-        <div className="c-articles__head">
-          <div className="c-articles__title">
-            <h2>記事一覧</h2>
+      <section className="l-section container">
+        <div className="c-articles">
+          <div className="c-articles__head">
+            <div className="c-articles__title">
+              <h2>記事一覧</h2>
+            </div>
+          </div>
+          <div className="c-articles__content">
+            {articles.map((article, index) => (
+              <Article article={article} key={index}></Article>
+            ))}
           </div>
         </div>
-        <div className="c-articles__content">
-          {articles.map((article, index) => (
-            <Article article={article} key={index}></Article>
-          ))}
-        </div>
-      </div>
+      </section>
     </Layout>
   );
 }

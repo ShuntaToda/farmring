@@ -1,8 +1,7 @@
 import Head from "next/head";
 import Script from "next/script";
 
-import "../styles/layout/header.scss";
-import "../styles/layout/footer.scss";
+import "../styles/style.scss";
 
 function MyApp({ Component, pageProps }) {
   return (
