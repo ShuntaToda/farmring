@@ -40,19 +40,19 @@ const test = () => {
     const querySnapshot = await getDocs(collection(db, "posts"));
     let items = [];
     querySnapshot.forEach((doc) => {
-      console.log(doc.data());
       items = [...items, doc.data()];
     });
     setArticles(items);
   };
 
   const uploadImage = () => {
-    const storageRef = ref(storage, `images/${image.current.files[0].name}`);
+    const storageRef = ref(
+      storage,
+      `images/${auth.currentUser.uid}/${image.current.files[0].name}`
+    );
     uploadBytes(storageRef, image.current.files[0]).then((snapshot) => {
-      console.log("Uploaded a blob or file!");
       getDownloadURL(storageRef)
         .then((url) => {
-          console.log(storageRef, url);
           setImageUrl(url);
           testPost(url);
         })

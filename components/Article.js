@@ -7,7 +7,6 @@ const Article = ({ article }) => {
   useEffect(() => {
     setMarkdownSource(article.content);
   }, []);
-  console.log(reactContent);
   return (
     <div>
       <div className="card">

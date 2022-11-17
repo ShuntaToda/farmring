@@ -7,7 +7,6 @@ const sample = () => {
   const [reactContent, setMarkdownSource] = useRemark();
 
   const aaa = (e) => {
-    console.log(text);
     setText(e);
     setMarkdownSource(text);
   };

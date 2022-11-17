@@ -9,7 +9,6 @@ const post = () => {
         content: "Lovelace",
         uid: 1815,
       });
-      console.log(docRef);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -17,10 +16,7 @@ const post = () => {
 
   const get = async () => {
     const querySnapshot = await getDocs(collection(db, "posts"));
-    querySnapshot.forEach((doc) => {
-      console.log(doc.data());
-      console.log(`${doc.id} => ${doc.data()}`);
-    });
+    querySnapshot.forEach((doc) => {});
   };
 
   return (
