@@ -1,29 +1,72 @@
-import React from "react";
-import { auth, provider, db } from "../lib/firebase";
+import React, { useEffect, useRef, useState } from "react";
+import { db, auth, provider, storage } from "../lib/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { collection, getDocs } from "firebase/firestore/lite";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+import Yamde from "yamde";
+import { useRemark } from "react-remark";
+import Article from "../components/Article";
 
 const test = () => {
   const [user] = useAuthState(auth);
+  const [reactContent, setMarkdownSource] = useRemark();
+  const [imageUrl, setImageUrl] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [articles, setArticles] = useState([]);
+  const image = useRef(null);
 
   const login = () => {
     signInWithPopup(auth, provider);
   };
 
-  const writeUserData = async () => {
-    const res = await collection(db, "post").doc("aaa").set({
-      content: "",
-      title: "title",
-      uid: "",
+  const testPost = async (url) => {
+    try {
+      const docRef = await addDoc(collection(db, "posts"), {
+        title: title,
+        content: content,
+        image: url,
+        uid: auth.currentUser.uid,
+        createdAt: new Date(),
+      });
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
+  const get = async () => {
+    const querySnapshot = await getDocs(collection(db, "posts"));
+    let items = [];
+    querySnapshot.forEach((doc) => {
+      console.log(doc.data());
+      items = [...items, doc.data()];
+    });
+    setArticles(items);
+  };
+
+  const uploadImage = () => {
+    const storageRef = ref(storage, `images/${image.current.files[0].name}`);
+    uploadBytes(storageRef, image.current.files[0]).then((snapshot) => {
+      console.log("Uploaded a blob or file!");
+      getDownloadURL(storageRef)
+        .then((url) => {
+          console.log(storageRef, url);
+          setImageUrl(url);
+          testPost(url);
+        })
+        .catch((error) => console.log(error));
     });
   };
-  const getData = async () => {
-    const citiesCol = collection(db, "post");
-    const citySnapshot = await getDocs(citiesCol);
-    const cityList = citySnapshot.docs.map((doc) => doc.data());
-    console.log(cityList);
+
+  const changeContent = (e) => {
+    setContent(e);
   };
+
+  useEffect(() => {
+    setMarkdownSource(content);
+  }, [content]);
   return (
     <div>
       {user ? (
@@ -40,13 +83,36 @@ const test = () => {
         </div>
       )}
 
+      <div className="border m-2">
+        <div>
+          <div>
+            <label>タイトル</label>
+            <input
+              className="form-control"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            ></input>
+          </div>
+          <Yamde value={content} handler={changeContent} theme="light" required />
+          {reactContent}
+          <button className="btn btn-primary" onClick={uploadImage}>
+            送信
+          </button>
+          <input type="file" ref={image}></input>
+          <img src={imageUrl} height="200px" width="200px"></img>
+        </div>
+      </div>
+      <button className="btn btn-primary" onClick={get}>
+        記事GETボタン
+      </button>
       <div>
-        <div>databasetest</div>
-        <button className="btn btn-outline-primary" onClick={writeUserData}>
-          書き込み
-        </button>
-        <button className="btn btn-outline-primary" onClick={getData}>
-          テストボタン
+        {articles.map((article, index) => (
+          <Article key={index} article={article}></Article>
+        ))}
+      </div>
+      <div>
+        <button className="btn btn-primary" onClick={get}>
+          GETボタン
         </button>
       </div>
     </div>
