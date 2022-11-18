@@ -1,32 +1,69 @@
 import React, { useEffect } from "react";
 
 import { db, auth, provider, storage } from "../lib/firebase";
-import { signInWithPopup, onAuthStateChanged, getAuth } from "firebase/auth";
+import { signInWithPopup, onAuthStateChanged, getAuth, GoogleAuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { addDoc, collection, getDoc, getDocs, limit, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 const Login = () => {
   const [user] = useAuthState(auth);
+
   const login = () => {
-    signInWithPopup(auth, provider);
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        console.log(result);
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        userCheck();
+        // ...
+      })
+      .catch((error) => {
+        console.log(error);
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
   };
-  console.log("login実行");
-  const userCheck = async (login) => {
-    // userの変更があったら発火
-    console.log("aaa");
-    if (login) {
-      // ログインしているか確認
-      // ログインしているユーザーのuidが同じデータを取得
-      const usersRef = collection(db, "users");
-      const q = query(usersRef, where("uid", "==", auth.currentUser.uid));
-      const userData = await getDocs(q);
-      if (userData.empty) {
-        // 該当ユーザーがいなかったら新規登録
-        console.log("該当ユーザーなし");
-      }
+
+  const addUser = async () => {
+    // ユーザー追加
+    await setDoc(doc(db, "users", auth.currentUser.uid), {
+      name: auth.currentUser.displayName,
+      content: "",
+      image: auth.currentUser.photoURL,
+      createdAt: new Date(),
+    });
+  };
+
+  const userCheck = async () => {
+    // ログインしているユーザーのuidが同じデータを取得
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, where("uid", "==", auth.currentUser.uid));
+    const userData = await getDocs(q);
+    if (userData.empty) {
+      // 該当ユーザーがいなかったら新規登録
+      addUser();
     }
   };
 
-  onAuthStateChanged(getAuth(), userCheck);
+  // onAuthStateChanged(getAuth(), userCheck);
 
   return (
     <>
