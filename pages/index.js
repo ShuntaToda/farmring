@@ -8,6 +8,7 @@ export default function Home() {
   const [articles, setArticles] = useState([]);
 
   const getAuthor = async (id) => {
+    // 記者取得
     const docRef = doc(db, "users", id);
     const userDoc = await getDoc(docRef);
     const author = userDoc.data();
@@ -25,7 +26,7 @@ export default function Home() {
     });
 
     items = items.map((art) => {
-      const author = getAuthor(art.id);
+      const author = getAuthor(art.data.uid);
       art.author = author;
       return art;
     });
