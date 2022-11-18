@@ -6,7 +6,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { Layout } from "../../components/layout/Layout";
 import { useRemark } from "react-remark";
 
-const index = () => {
+const Index = () => {
   const ref = useRef();
   const router = useRouter();
   const { post_id } = router.query;
@@ -46,4 +46,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
