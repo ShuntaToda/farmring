@@ -10,7 +10,7 @@ import { useRemark } from "react-remark";
 import Article from "../components/Article";
 import { Layout } from "../components/layout/Layout";
 
-const test = () => {
+const Test = () => {
   const [user] = useAuthState(auth);
   const [reactContent, setMarkdownSource] = useRemark();
   const [imageUrl, setImageUrl] = useState("");
@@ -122,4 +122,4 @@ const test = () => {
   );
 };
 
-export default test;
+export default Test;

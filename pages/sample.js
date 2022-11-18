@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Yamde from "yamde";
 import { useRemark } from "react-remark";
 
-const sample = () => {
+const Sample = () => {
   const [text, setText] = useState("");
   const [reactContent, setMarkdownSource] = useRemark();
 
@@ -19,4 +19,4 @@ const sample = () => {
   );
 };
 
-export default sample;
+export default Sample;

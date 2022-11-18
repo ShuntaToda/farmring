@@ -1,7 +1,7 @@
 import React from "react";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../lib/firebase";
-const post = () => {
+const Post = () => {
   const testPost = async () => {
     try {
       const docRef = await addDoc(collection(db, "posts"), {
@@ -31,4 +31,4 @@ const post = () => {
   );
 };
 
-export default post;
+export default Post;
