@@ -36,7 +36,7 @@ const Article = ({ article, id }) => {
             <div className="c-article-block__property">
               <div className="c-article-block__property-heart">
                 <FontAwesomeIcon icon={faHeart} />
-                <span>110</span>
+                <span>{article.good}</span>
               </div>
             </div>
           </div>

@@ -12,6 +12,7 @@ export default function Home() {
     const docRef = doc(db, "users", id);
     const userDoc = await getDoc(docRef);
     const author = userDoc.data();
+    console.log(author);
     return author;
   };
 
