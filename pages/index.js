@@ -11,7 +11,7 @@ export default function Home() {
     const querySnapshot = await getDocs(collection(db, "posts"));
     let items = [];
     querySnapshot.forEach((doc) => {
-      items = [...items, doc.data()];
+      items = [...items, { data: doc.data(), id: doc.id }];
     });
     setArticles(items);
   };
@@ -30,8 +30,8 @@ export default function Home() {
             </div>
           </div>
           <div className="c-articles__content">
-            {articles.map((article, index) => (
-              <Article article={article} key={index}></Article>
+            {articles.map((article) => (
+              <Article article={article.data} id={article.id} key={article.id}></Article>
             ))}
           </div>
         </div>

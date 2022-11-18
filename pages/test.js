@@ -8,6 +8,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Yamde from "yamde";
 import { useRemark } from "react-remark";
 import Article from "../components/Article";
+import { Layout } from "../components/layout/Layout";
 
 const test = () => {
   const [user] = useAuthState(auth);
@@ -68,54 +69,56 @@ const test = () => {
     setMarkdownSource(content);
   }, [content]);
   return (
-    <div>
-      {user ? (
-        <div>
-          <div className="btn btn-primary" onClick={() => auth.signOut()}>
-            サインアウト
-          </div>
-          <p>{auth.currentUser.displayName}</p>
-          <img src={auth.currentUser.photoURL}></img>
-        </div>
-      ) : (
-        <div className="btn btn-primary" onClick={login}>
-          ログイン
-        </div>
-      )}
-
-      <div className="border m-2">
-        <div>
+    <Layout>
+      <div>
+        {user ? (
           <div>
-            <label>タイトル</label>
-            <input
-              className="form-control"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            ></input>
+            <div className="btn btn-primary" onClick={() => auth.signOut()}>
+              サインアウト
+            </div>
+            <p>{auth.currentUser.displayName}</p>
+            <img src={auth.currentUser.photoURL}></img>
           </div>
-          <Yamde value={content} handler={changeContent} theme="light" required />
-          {reactContent}
-          <button className="btn btn-primary" onClick={uploadImage}>
-            送信
+        ) : (
+          <div className="btn btn-primary" onClick={login}>
+            ログイン
+          </div>
+        )}
+
+        <div className="border m-2">
+          <div>
+            <div>
+              <label>タイトル</label>
+              <input
+                className="form-control"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              ></input>
+            </div>
+            <Yamde value={content} handler={changeContent} theme="light" required />
+            {reactContent}
+            <button className="btn btn-primary" onClick={uploadImage}>
+              送信
+            </button>
+            <input type="file" ref={image}></input>
+            <img src={imageUrl} height="200px" width="200px"></img>
+          </div>
+        </div>
+        <button className="btn btn-primary" onClick={get}>
+          記事GETボタン
+        </button>
+        <div>
+          {articles.map((article, index) => (
+            <Article key={index} article={article}></Article>
+          ))}
+        </div>
+        <div>
+          <button className="btn btn-primary" onClick={get}>
+            GETボタン
           </button>
-          <input type="file" ref={image}></input>
-          <img src={imageUrl} height="200px" width="200px"></img>
         </div>
       </div>
-      <button className="btn btn-primary" onClick={get}>
-        記事GETボタン
-      </button>
-      <div>
-        {articles.map((article, index) => (
-          <Article key={index} article={article}></Article>
-        ))}
-      </div>
-      <div>
-        <button className="btn btn-primary" onClick={get}>
-          GETボタン
-        </button>
-      </div>
-    </div>
+    </Layout>
   );
 };
 
