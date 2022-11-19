@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
-import { getAuth, getUser } from "firebase/auth";
+import { AuthErrorCodes, getAuth, getUser } from "firebase/auth";
 import { useRemark } from "react-remark";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import Link from "next/link";
 
-const Article = ({ article, id }) => {
+const Article = ({ article, id, author }) => {
   const [reactContent, setMarkdownSource] = useRemark();
   useEffect(() => {
     setMarkdownSource(article.content);
   }, []);
+
+  console.log(author);
   return (
     <div className="c-article-block">
       <div className="c-article-block__container d-flex">
@@ -29,9 +31,9 @@ const Article = ({ article, id }) => {
           <div className="c-article-block__text">
             <div className="c-article-block__author">
               <div className="c-article-block__author-img">
-                <img src="https://placehold.jp/150x150.png"></img>
+                <img src={author.image}></img>
               </div>
-              <div className="c-article-block__author-name">筆者名が入ります</div>
+              <div className="c-article-block__author-name">{author.name}</div>
             </div>
             <div className="c-article-block__property">
               <div className="c-article-block__property-heart">

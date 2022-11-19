@@ -7,13 +7,19 @@ import Article from "../components/Article";
 export default function Home() {
   const [articles, setArticles] = useState([]);
 
-  const getAuthor = async (id) => {
+  const getAuthor = async (items) => {
     // 記者取得
-    const docRef = doc(db, "users", id);
-    const userDoc = await getDoc(docRef);
-    const author = userDoc.data();
-    console.log(author);
-    return author;
+    const result = await Promise.all(
+      items.map(async (art) => {
+        console.log(art.data.uid);
+        const docRef = doc(db, "users", art.data.uid);
+        const userDoc = await getDoc(docRef);
+        const author = userDoc.data();
+        art.author = author;
+        return art;
+      })
+    );
+    setArticles(result);
   };
 
   const getArticles = async () => {
@@ -26,14 +32,7 @@ export default function Home() {
       items = [...items, { data: doc.data(), id: doc.id }];
     });
 
-    items = items.map((art) => {
-      const author = getAuthor(art.data.uid);
-      art.author = author;
-      return art;
-    });
-
-    console.log(items);
-    setArticles(items);
+    items = getAuthor(items);
   };
 
   useEffect(() => {
@@ -51,7 +50,12 @@ export default function Home() {
           </div>
           <div className="c-articles__content">
             {articles.map((article) => (
-              <Article article={article.data} id={article.id} key={article.id}></Article>
+              <Article
+                article={article.data}
+                author={article.author}
+                id={article.id}
+                key={article.id}
+              ></Article>
             ))}
           </div>
         </div>
