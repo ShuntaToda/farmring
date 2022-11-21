@@ -68,20 +68,35 @@ const Login = () => {
   return (
     <>
       {user ? (
-        <div className="h-100">
-          <div className="h-100 d-flex align-items-center">
-            <div className="h-100 p-3">
-              <img className="h-100 rounded-circle" src={auth.currentUser.photoURL}></img>
-            </div>
-            <span>{auth.currentUser.displayName}</span>
-            <div className="btn btn-primary mx-4" onClick={() => auth.signOut()}>
-              サインアウト
+        <div className="dropdown h-100">
+          <button
+            className="btn btn-light  dropdown-toggle h-100 d-block"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img className="h-75 rounded-circle" src={auth.currentUser.photoURL}></img>
+          </button>
+          <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li>
+              <h6 className="dropdown-header">{auth.currentUser.displayName}</h6>
+            </li>
+            <li>
+              <button className="dropdown-item" onClick={() => auth.signOut()}>
+                サインアウト
+              </button>
+            </li>
+          </ul>
+          <div className="h-100">
+            <div className="h-100 d-flex align-items-center">
+              <div className="h-100 p-3"></div>
             </div>
           </div>
         </div>
       ) : (
         <div className="h-100 d-flex align-items-center">
-          <div className="btn btn-primary mx-4" onClick={login}>
+          <div className="btn btn-outline-primary mx-4" onClick={login}>
             ログイン
           </div>
         </div>
