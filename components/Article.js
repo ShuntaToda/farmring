@@ -12,7 +12,6 @@ const Article = ({ article, id, author }) => {
     setMarkdownSource(article.content);
   }, []);
 
-  console.log(author);
   return (
     <div className="c-article-block">
       <div className="c-article-block__container d-flex">

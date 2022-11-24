@@ -12,6 +12,7 @@ const Index = () => {
   const { post_id } = router.query;
 
   const [article, setArticle] = useState({});
+  const [author, setAuthor] = useState({});
   const [articleContent, setMarkdownSource] = useRemark();
 
   const getArticle = async () => {
@@ -26,6 +27,18 @@ const Index = () => {
       alert("記事が取得できません");
     }
   };
+  const getAuthor = async () => {
+    // 記事取得
+    const docRef = doc(db, "users", article.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      // 記事が存在したらセット
+      setAuthor(docSnap.data());
+    } else {
+      alert("記者が取得できません");
+    }
+  };
 
   useEffect(() => {
     getArticle();
@@ -33,6 +46,7 @@ const Index = () => {
 
   useEffect(() => {
     setMarkdownSource(article.content);
+    getAuthor();
   }, [article]);
   return (
     <Layout>
@@ -41,6 +55,12 @@ const Index = () => {
           <h2 className="c-article__title">{article.title}</h2>
         </div>
         <div className="c-artcle__content">{articleContent}</div>
+        <div className="c-article__footer">
+          <div className="c-article__footer-image">
+            {console.log(article)}
+            <img src={author.iamge}></img>
+          </div>
+        </div>
       </div>
     </Layout>
   );
