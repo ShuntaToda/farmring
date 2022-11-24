@@ -18,7 +18,7 @@ const Article = ({ article, id, author }) => {
       <div className="c-article-block__container d-flex">
         <Link href={`article/${id}`}>
           <div className="c-article-block__img">
-            <img src={article.image}></img>
+            <img src={article.image} className=""></img>
           </div>
         </Link>
 
@@ -31,9 +31,15 @@ const Article = ({ article, id, author }) => {
           <div className="c-article-block__text">
             <div className="c-article-block__author">
               <div className="c-article-block__author-img">
-                <img src={author.image}></img>
+                <Link href={`users/${article.uid}/profile`}>
+                  <img src={author.image}></img>
+                </Link>
               </div>
-              <div className="c-article-block__author-name">{author.name}</div>
+              <div className="c-article-block__author-name">
+                <Link href={`users/${article.uid}/profile`} className="">
+                  {author.name}
+                </Link>
+              </div>
             </div>
             <div className="c-article-block__property">
               <div className="c-article-block__property-heart">

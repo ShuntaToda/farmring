@@ -29,7 +29,7 @@ const Index = () => {
 
   useEffect(() => {
     getArticle();
-  }, [ref]);
+  }, [post_id]);
 
   useEffect(() => {
     setMarkdownSource(article.content);
