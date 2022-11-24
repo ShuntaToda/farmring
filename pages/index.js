@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import { db, auth, provider, storage } from "../lib/firebase";
-import { collection, addDoc, getDocs, limit, orderBy, getDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  limit,
+  orderBy,
+  getDoc,
+  doc,
+} from "firebase/firestore";
 import { Layout } from "../components/layout/Layout";
 import Article from "../components/Article";
 
@@ -24,7 +32,11 @@ export default function Home() {
 
   const getArticles = async () => {
     // 記事を取得（10個、作成順）
-    const querySnapshot = await getDocs(collection(db, "posts"), limit(10), orderBy("createdAt"));
+    const querySnapshot = await getDocs(
+      collection(db, "posts"),
+      limit(10),
+      orderBy("createdAt")
+    );
     let items = [];
 
     querySnapshot.forEach((doc) => {
@@ -41,25 +53,23 @@ export default function Home() {
 
   return (
     <Layout>
-      <section className="l-section container">
-        <div className="c-articles">
-          <div className="c-articles__head">
-            <div className="c-articles__title">
-              <h2>記事一覧</h2>
-            </div>
-          </div>
-          <div className="c-articles__content">
-            {articles.map((article) => (
-              <Article
-                article={article.data}
-                author={article.author}
-                id={article.id}
-                key={article.id}
-              ></Article>
-            ))}
+      <div className="c-home-page container">
+        <div className="c-home-page__head">
+          <div className="c-home-page__title">
+            <h2>記事一覧</h2>
           </div>
         </div>
-      </section>
+        <div className="c-home-page__content">
+          {articles.map((article) => (
+            <Article
+              article={article.data}
+              author={article.author}
+              id={article.id}
+              key={article.id}
+            ></Article>
+          ))}
+        </div>
+      </div>
     </Layout>
   );
 }

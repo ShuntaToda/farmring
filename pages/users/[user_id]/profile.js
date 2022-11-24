@@ -34,17 +34,21 @@ const Profile = () => {
   return (
     <Layout>
       {user ? (
-        <div className="c-profile px-2 pt-5">
-          <div className="c-profile__head">
+        <div className="c-profile pt-5">
+          <div className="c-profile__head px-2">
             <div className="c-profile__image">
               <img className="rounded-circle" src={user.image}></img>
             </div>
             <div className="c-profile__name">
               <h2>{user.name}</h2>
             </div>
+            <div className="c-profile__address">
+              {user.address ? user.address : "設定無し"}
+            </div>
+            <div className="c-profile__content">
+              {user.content ? user.content : "設定なし"}
+            </div>
           </div>
-          <div className="c-profile__address">{user.address ? user.address : "設定無し"}</div>
-          <div className="c-profile__content">{user.content ? user.content : "設定なし"}</div>
           <UserItems uid={user_id}></UserItems>
         </div>
       ) : (
