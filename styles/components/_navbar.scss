@@ -1,9 +1,30 @@
 .c-nav-bar {
   position: fixed;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   bottom: 0;
   left: 0;
   width: 100vw;
   height: 60px;
   background-color: white;
   box-shadow: 0px 0rem 1rem rgba(0, 0, 0, 0.233);
+  > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-grow: 1;
+    > svg {
+      height: 30px;
+    }
+    &:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      height: 50%;
+      width: 1px;
+      background-color: rgba(0, 0, 0, 0.247);
+    }
+  }
 }

@@ -1,0 +1,41 @@
+.c-post {
+  &__thumbnail {
+    > img {
+      height: 200px;
+    }
+  }
+  &__images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    &-wrap {
+      width: 130px;
+      height: 130px;
+      position: relative;
+      &:hover {
+        &::after {
+          opacity: 1;
+        }
+      }
+      &::after {
+        content: "追加";
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.575);
+        color: white;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: 0.3s;
+      }
+      > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}

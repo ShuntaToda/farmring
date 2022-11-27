@@ -17,24 +17,27 @@ const Index = () => {
 
   const getArticle = async () => {
     // 記事取得
+    console.log(post_id);
     const docRef = doc(db, "posts", post_id);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
       // 記事が存在したらセット
       setArticle(docSnap.data());
+      getAuthor(docSnap.data().uid);
     } else {
       alert("記事が取得できません");
     }
   };
-  const getAuthor = async () => {
+  const getAuthor = async (uid) => {
     // 記事取得
-    const docRef = doc(db, "users", article.uid);
+    const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
       // 記事が存在したらセット
       setAuthor(docSnap.data());
+      console.log(docSnap.data());
     } else {
       alert("記者が取得できません");
     }
@@ -46,7 +49,6 @@ const Index = () => {
 
   useEffect(() => {
     setMarkdownSource(article.content);
-    getAuthor();
   }, [article]);
   return (
     <Layout>
@@ -57,7 +59,6 @@ const Index = () => {
         <div className="c-artcle__content">{articleContent}</div>
         <div className="c-article__footer">
           <div className="c-article__footer-image">
-            {console.log(article)}
             <img src={author.iamge}></img>
           </div>
         </div>

@@ -19,7 +19,6 @@ export default function Home() {
     // 記者取得
     const result = await Promise.all(
       items.map(async (art) => {
-        console.log(art.data.uid);
         const docRef = doc(db, "users", art.data.uid);
         const userDoc = await getDoc(docRef);
         const author = userDoc.data();
@@ -53,13 +52,13 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="c-home-page container">
-        <div className="c-home-page__head">
+      <div className="c-home-page">
+        <div className="c-home-page__head container">
           <div className="c-home-page__title">
             <h2>記事一覧</h2>
           </div>
         </div>
-        <div className="c-home-page__content">
+        <div className="c-home-page__content container">
           {articles.map((article) => (
             <Article
               article={article.data}

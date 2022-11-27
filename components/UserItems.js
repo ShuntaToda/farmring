@@ -46,31 +46,60 @@ const UserItems = ({ uid }) => {
           }}
           className={`${isShowArticle ? "" : "active"}`}
         >
-          ショップ
+          商品
         </span>
       </div>
-      <div className="c-user-items__contents">
+      <div className={`c-user-items__contents ${isShowArticle ? "" : "shop"}`}>
         {isShowArticle ? (
           <>
-            {articles.map((article, index) => (
-              <Link
-                href={`/article/${article.id}`}
-                className=""
-                key={article.id}
-              >
-                <div className="c-user-items__article">
-                  <div className="c-user-items__article-image">
-                    <img src={article.data.image}></img>
-                  </div>
-                  <div className="c-user-items__article-content">
-                    <h4>{article.data.title}</h4>
-                  </div>
-                </div>
-              </Link>
-            ))}
+            {articles.length === 0 ? (
+              <div className="h-100">記事がありません</div>
+            ) : (
+              <>
+                {articles.map((article, index) => (
+                  <Link
+                    href={`/article/${article.id}`}
+                    className="text-dark text-decoration-none"
+                    key={article.id}
+                  >
+                    <div className="c-user-items__article">
+                      <div className="c-user-items__article-image">
+                        <img src={article.data.image}></img>
+                      </div>
+                      <div className="c-user-items__article-content">
+                        <h4>{article.data.title}</h4>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </>
+            )}
           </>
         ) : (
-          <div>ショップ</div>
+          <>
+            {articles.length === 0 ? (
+              <div className="h-100">記事がありません</div>
+            ) : (
+              <>
+                {articles.map((article, index) => (
+                  <Link
+                    href={`/article/${article.id}`}
+                    className="text-dark text-decoration-none"
+                    key={article.id}
+                  >
+                    <div className="c-user-items__article">
+                      <div className="c-user-items__article-image">
+                        <img src={article.data.image}></img>
+                      </div>
+                      <div className="c-user-items__article-content">
+                        <h4>{article.data.title}</h4>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </>
+            )}
+          </>
         )}
       </div>
     </div>

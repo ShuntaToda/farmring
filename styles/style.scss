@@ -1,6 +1,7 @@
 $primary: #5ac709;
 $secondary: #f5a583;
 $back-ground-primary: #5bc7091e;
+$back-ground-primary-dark: #4fa80a31;
 body {
   font-family: "Noto Sans JP", sans-serif;
 }
@@ -15,6 +16,11 @@ body {
 @import "components/article";
 @import "components/navbar";
 @import "components/user-items";
+@import "components/user";
+@import "components/profile";
+@import "components/post";
+
+@import "_bootstrap-setting";
 
 // Custom.scss
 // Option A: Include all of Bootstrap

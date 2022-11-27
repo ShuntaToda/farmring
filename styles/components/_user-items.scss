@@ -1,13 +1,15 @@
 .c-user-items {
   &__head {
-    margin-top: 50px;
+    margin-top: 20px;
     > span {
       font-size: 20px;
-      font-weight: bold;
       cursor: pointer;
-      border-radius: 10px 10px 0 0;
-      padding: 5px 10px;
+      border-radius: 5px 5px 0 0;
+      padding: 10px 20px 0px 20px;
       background-color: $back-ground-primary;
+      &:nth-child(2) {
+        background-color: $back-ground-primary-dark;
+      }
       &::after {
         content: "";
         display: block;
@@ -17,29 +19,36 @@
         transition: 0.3s;
       }
     }
+
     > span.active::after {
-      width: 100%;
-    }
-    > span:hover::after {
       width: 100%;
     }
   }
   &__contents {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
     background-color: $back-ground-primary;
+    > a {
+      width: 100%;
+      @media (min-width: 950px) {
+        width: 450px;
+      }
+    }
+
+    &.shop {
+      background-color: $back-ground-primary-dark;
+    }
   }
   &__article {
-    width: 140px;
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.233);
-    margin: 40px 0;
+    margin: 20px 10px;
     background-color: white;
     border-radius: 5px;
     overflow: hidden;
     &-image {
-      width: 140px;
-      height: 140px;
+      width: 100%;
+      height: 200px;
       > img {
         width: 100%;
         height: 100%;
@@ -48,6 +57,7 @@
     }
     &-content {
       padding: 5px 10px;
+      min-height: 100px;
       > h4 {
         font-size: 16px;
       }

@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 
 import { db, auth, provider, storage } from "../lib/firebase";
-import { signInWithPopup, onAuthStateChanged, getAuth, GoogleAuthProvider } from "firebase/auth";
+import {
+  signInWithPopup,
+  onAuthStateChanged,
+  getAuth,
+  GoogleAuthProvider,
+} from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
   addDoc,
@@ -49,6 +54,10 @@ const Login = () => {
       content: "",
       image: auth.currentUser.photoURL,
       createdAt: new Date(),
+      tags: {
+        pref: "01",
+        city: "",
+      },
     });
   };
 
@@ -76,11 +85,16 @@ const Login = () => {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <img className="h-75 rounded-circle" src={auth.currentUser.photoURL}></img>
+            <img
+              className="h-75 rounded-circle"
+              src={auth.currentUser.photoURL}
+            ></img>
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li>
-              <h6 className="dropdown-header">{auth.currentUser.displayName}</h6>
+              <h6 className="dropdown-header">
+                {auth.currentUser.displayName}
+              </h6>
             </li>
             <li>
               <button className="dropdown-item" onClick={() => auth.signOut()}>
