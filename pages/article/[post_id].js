@@ -18,7 +18,6 @@ const Index = () => {
 
   const getArticle = async () => {
     // 記事取得
-    console.log(post_id);
     const docRef = doc(db, "posts", post_id);
     const docSnap = await getDoc(docRef);
 
@@ -90,20 +89,25 @@ const Index = () => {
           </div>
         </div>
         <div className="c-article__content container py-4">{articleContent}</div>
-        <div className="c-article__footer container py-4">
-          <div className="c-article__footer-head mb-3 d-flex flex-wrap align-items-center">
-            <Link href={`/users/${article.uid}/profile`}>
-              <div className="c-article__footer-image">
-                <img src={author.image}></img>
-              </div>
-            </Link>
+        <div className="c-article__footer  py-4">
+          <div className="container">
+            <div className="c-article__footer-head mb-3 d-flex flex-wrap align-items-center">
+              <Link href={`/users/${article.uid}/profile`}>
+                <div className="c-article__footer-image">
+                  <img src={author.image}></img>
+                </div>
+              </Link>
 
-            <Link href={`/users/${article.uid}/profile`} className="text-dark text-decoration-none">
-              <div className="ms-3 fw-bold">{author.name}</div>
-            </Link>
+              <Link
+                href={`/users/${article.uid}/profile`}
+                className="text-dark text-decoration-none"
+              >
+                <div className="ms-3 fw-bold">{author.name}</div>
+              </Link>
+            </div>
+            {author.address ? <div className="mb-3">{author.address}</div> : <></>}
+            {author.content ? <div className="mb-3">{author.content}</div> : <></>}
           </div>
-          {author.address ? <div className="mb-3">{author.address}</div> : <></>}
-          {author.content ? <div className="mb-3">{author.content}</div> : <></>}
         </div>
       </div>
     </Layout>

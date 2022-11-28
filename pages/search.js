@@ -25,17 +25,18 @@ const Search = () => {
       })
     );
     set(result);
+    console.log(result);
   };
   const getArticles = async (uploadTags) => {
-    console.log(uploadTags);
     let q;
-    q = query(collection(db, "posts"));
-    // if (uploadTags == []) {
-    //   // 記事を取得（10個、作成順）
-    // } else {
-    //   q = query(collection(db, "posts"), where("tags", "array-contains-any", uploadTags));
-    //   // 記事を取得（10個、作成順）
-    // }
+    console.log(uploadTags);
+    if (uploadTags == []) {
+      q = query(collection(db, "posts"));
+      // 記事を取得（10個、作成順）
+    } else {
+      q = query(collection(db, "posts"), where("tags", "array-contains-any", ["きゅうり"]));
+      // 記事を取得（10個、作成順）
+    }
     const querySnapshot = await getDocs(q);
     let items = [];
 
@@ -72,7 +73,7 @@ const Search = () => {
       return tag.value;
     });
     getArticles(uploadTags);
-  }, [tags]);
+  }, [tags, selectedTags]);
   return (
     <Layout>
       <div className="c-search mt-5 container">
@@ -88,9 +89,9 @@ const Search = () => {
           ></Select>
         </div>
         <div className="c-search__content">
-          {article.map((art) => {
-            <div>{art.data.title}</div>;
-          })}
+          {article.map((art, index) => (
+            <div key={index}>{art.data.title}</div>
+          ))}
         </div>
       </div>
     </Layout>
