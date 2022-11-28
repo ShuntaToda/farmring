@@ -72,7 +72,7 @@ const User = () => {
                   <span>記事を追加</span>
                 </div>
               </Link>
-              <Link href={""}>
+              <Link href={"/create/product"}>
                 <div className="btn btn-outline-primary">
                   <span>商品を追加</span>
                 </div>
