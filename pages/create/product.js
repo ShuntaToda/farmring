@@ -22,6 +22,7 @@ const Post = () => {
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [tagsOption, setTagsOption] = useState([]);
+  const [price, setPrice] = useState(0);
 
   const changeContent = (e) => {
     setContent(e);
@@ -76,12 +77,13 @@ const Post = () => {
       return tag.value;
     });
     try {
-      const docRef = await addDoc(collection(db, "posts"), {
+      const docRef = await addDoc(collection(db, "products"), {
         title: title,
         content: content,
         image: thumbnail !== "" ? thumbnail : "https://placehold.jp/150x150.png",
         uid: auth.currentUser.uid,
         tags: uploadTags,
+        price: price,
         createdAt: new Date(),
       });
       setUploadMessage("投稿されました。");
@@ -115,7 +117,7 @@ const Post = () => {
   return (
     <Layout>
       <div className="mt-5 container c-post">
-        <h2>記事追加</h2>
+        <h2>商品追加</h2>
         <div className="my-3 c-post__thumbnail">
           <h5>サムネイル追加</h5>
           <img src={thumbnail}></img>
@@ -133,6 +135,16 @@ const Post = () => {
               表示
             </button>
           </div>
+        </div>
+        <div>
+          <label>値段</label>
+          <input
+            className="form-control"
+            type="number"
+            min={0}
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          ></input>
         </div>
         <div className="c-post__title">
           <label>タイトル</label>
