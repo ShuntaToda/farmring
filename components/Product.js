@@ -14,7 +14,7 @@ const Product = ({ product, id, author }) => {
 
   return (
     <div className="c-product-block">
-      <div className="c-product-block__container d-flex">
+      <div className="c-product-block__container">
         <Link href={`product/${id}`}>
           <div className="c-product-block__img">
             <img src={product.image} className=""></img>
@@ -22,20 +22,26 @@ const Product = ({ product, id, author }) => {
         </Link>
 
         <div className="c-product-block__content">
-          <div className="c-product-block__title">
-            <Link href={`product/${id}`}>
-              <h4>{product.title}</h4>
+          <div className="">
+            <Link href={`product/${id}`} className="text-dark text-decoration-none">
+              <h4 className="c-product-block__title">{product.title}</h4>
             </Link>
           </div>
           <div className="c-product-block__text">
             <div className="c-product-block__author">
               <div className="c-product-block__author-img">
-                <Link href={`users/${product.uid}/profile`}>
+                <Link
+                  href={`users/${product.uid}/profile`}
+                  className={"text-dark text-decoration-none"}
+                >
                   <img src={author.image}></img>
                 </Link>
               </div>
               <div className="c-product-block__author-name">
-                <Link href={`users/${product.uid}/profile`} className="">
+                <Link
+                  href={`users/${product.uid}/profile`}
+                  className="text-dark text-decoration-none"
+                >
                   {author.name}
                 </Link>
               </div>

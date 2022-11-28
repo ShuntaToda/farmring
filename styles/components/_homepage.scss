@@ -1,4 +1,15 @@
 .c-home-page {
-  padding: 80px 0;
-  background-color: $back-ground-primary;
+  &__article {
+    padding-top: 80px;
+    background-color: $back-ground-primary;
+  }
+  &__product {
+    padding-top: 40px;
+    padding-bottom: 80px;
+    background-color: white;
+  }
+  &__products {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }

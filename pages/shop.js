@@ -45,18 +45,19 @@ export default function Shop() {
 
   return (
     <Layout>
-      <div className="c-home-page">
-        <div className="c-home-page__head container">
-          <div className="c-home-page__title">
+      <div className="c-shop py-5">
+        <div className="c-shop__head container">
+          <div className="c-shop__title">
             <h2>商品一覧</h2>
           </div>
         </div>
-        <div className="c-home-page__content container">
+        <div className="c-shop__content container">
           {products.map((article) => (
             <Product
               product={article.data}
               author={article.author}
               id={article.id}
+              w
               key={article.id}
             ></Product>
           ))}
