@@ -99,20 +99,25 @@ const Index = () => {
         <div className="c-product-buy  text-center my-2">
           <button className="btn btn-secondary">購入する</button>
         </div>
-        <div className="c-article__footer container py-4">
-          <div className="c-article__footer-head mb-3 d-flex flex-wrap align-items-center">
-            <Link href={`/users/${product.uid}/profile`}>
-              <div className="c-article__footer-image">
-                <img src={author.image}></img>
-              </div>
-            </Link>
+        <div className="c-article__footer py-4">
+          <div className="container">
+            <div className="c-article__footer-head mb-3 d-flex flex-wrap align-items-center">
+              <Link href={`/users/${product.uid}/profile`}>
+                <div className="c-article__footer-image">
+                  <img src={author.image}></img>
+                </div>
+              </Link>
 
-            <Link href={`/users/${product.uid}/profile`} className="text-dark text-decoration-none">
-              <div className="ms-3 fw-bold">{author.name}</div>
-            </Link>
+              <Link
+                href={`/users/${product.uid}/profile`}
+                className="text-dark text-decoration-none"
+              >
+                <div className="ms-3 fw-bold">{author.name}</div>
+              </Link>
+            </div>
+            {author.address ? <div className="mb-3">{author.address}</div> : <></>}
+            {author.content ? <div className="mb-3">{author.content}</div> : <></>}
           </div>
-          {author.address ? <div className="mb-3">{author.address}</div> : <></>}
-          {author.content ? <div className="mb-3">{author.content}</div> : <></>}
         </div>
       </div>
     </Layout>
