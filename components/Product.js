@@ -15,6 +15,9 @@ const Product = ({ product, id, author }) => {
   return (
     <div className="c-product-block">
       <div className="c-product-block__container">
+        <div className="c-product-block__price">
+          <span>¥{product.price}</span>
+        </div>
         <Link href={`product/${id}`}>
           <div className="c-product-block__img">
             <img src={product.image} className=""></img>
