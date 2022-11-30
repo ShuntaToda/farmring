@@ -34,6 +34,9 @@
         background-color: $primary;
       }
     }
+    hr {
+      margin-bottom: 50px;
+    }
     .preview-0-2-9 > h3 {
       color: $secondary !important;
     }
@@ -44,11 +47,16 @@
     }
     p {
       width: 100%;
+      padding-bottom: 40px;
       img {
         width: 100%;
         text-align: center;
         padding: 0 15%;
       }
+    }
+
+    li > p {
+      padding: 0;
     }
   }
 

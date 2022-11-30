@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 
 import { db, auth, provider, storage } from "../../lib/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, query } from "firebase/firestore";
 import { Layout } from "../../components/layout/Layout";
 import { useRemark } from "react-remark";
 import dayjs from "dayjs";
@@ -75,12 +75,17 @@ const Index = () => {
             {article.tags ? (
               <>
                 {article.tags.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="mx-1 py-1 px-3 bg-light rounded-pill border border-primary"
+                  <Link
+                    href={{ pathname: "/search", query: { tag } }}
+                    className={"text-dark text-decoration-none p-2"}
                   >
-                    {tag}
-                  </span>
+                    <span
+                      key={index}
+                      className="mx-1 py-1 px-3 bg-light rounded-pill border border-primary"
+                    >
+                      {tag}
+                    </span>
+                  </Link>
                 ))}
               </>
             ) : (
