@@ -1,13 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRemark } from "react-remark";
-import { Layout } from "../../components/layout/Layout";
-import { db, auth, provider, storage } from "../../lib/firebase";
+import { Layout } from "../../../components/layout/Layout";
+import { db, auth, provider, storage } from "../../../lib/firebase";
 import Yamde from "yamde";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
-import AddTag from "../../components/AddTag";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import AddTag from "../../../components/AddTag";
 import Select from "react-select";
+import { useRouter } from "next/router";
 
 const Post = () => {
   const [user] = useAuthState(auth);
@@ -22,6 +32,27 @@ const Post = () => {
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [tagsOption, setTagsOption] = useState([]);
+
+  const router = useRouter();
+  const { article_id } = router.query;
+
+  const getArticle = async () => {
+    // 記事取得
+    const docRef = doc(db, "posts", article_id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      console.log(docSnap.data());
+      const data = docSnap.data();
+      setSelectedTags(data.tag);
+      setTitle(data.title);
+      setContent(data.content);
+      setThumbnail(data.image);
+      setSelectedTags(data.tags.map((t) => ({ value: t, label: t })));
+    } else {
+      alert("記事が取得できません");
+    }
+  };
 
   const changeContent = (e) => {
     setContent(e);
@@ -75,8 +106,9 @@ const Post = () => {
     const uploadTags = selectedTags.map((tag) => {
       return tag.value;
     });
+    const postsRef = doc(db, "posts", article_id);
     try {
-      const docRef = await addDoc(collection(db, "posts"), {
+      const docRef = await updateDoc(postsRef, {
         title: title,
         content: content,
         image: thumbnail !== "" ? thumbnail : "https://placehold.jp/150x150.png",
@@ -84,7 +116,7 @@ const Post = () => {
         tags: uploadTags,
         createdAt: new Date(),
       });
-      setUploadMessage("投稿されました。");
+      setUploadMessage("更新されました。");
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -105,6 +137,10 @@ const Post = () => {
   useEffect(() => {
     getTags();
   }, []);
+
+  useEffect(() => {
+    getArticle();
+  }, [article_id]);
 
   useEffect(() => {
     const tagsArray = tags.map((tag) => {

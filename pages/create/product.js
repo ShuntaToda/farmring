@@ -187,7 +187,6 @@ const Post = () => {
           <div
             className="modal fade"
             id="imagesBtn"
-            tabindex="-1"
             aria-labelledby="imagesBtnLabel"
             aria-hidden="true"
           >
@@ -222,10 +221,10 @@ const Post = () => {
             </div>
           </div>
         </div>
-        <div class="mb-3">
+        <div className="mb-3">
           <h5>画像を追加</h5>
           <div className="input-group">
-            <input class="form-control" type="file" ref={image}></input>
+            <input className="form-control" type="file" ref={image}></input>
             <button className="btn btn-outline-primary" onClick={uploadImage}>
               追加
             </button>
