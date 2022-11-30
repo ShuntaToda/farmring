@@ -57,7 +57,6 @@ export default function Shop() {
               product={article.data}
               author={article.author}
               id={article.id}
-              w
               key={article.id}
             ></Product>
           ))}
