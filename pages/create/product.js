@@ -28,19 +28,21 @@ const Post = () => {
     setContent(e);
   };
   const uploadImage = () => {
-    const storageRef = ref(
-      storage,
-      `images/${auth.currentUser.uid}/${image.current.files[0].name}`
-    );
-    uploadBytes(storageRef, image.current.files[0]).then((snapshot) => {
-      getDownloadURL(storageRef)
-        .then((url) => {
-          // firestoreに登録
-          storeImage(url);
-          image.current.value = "";
-        })
-        .catch((error) => console.log(error));
-    });
+    if (image.current.files[0]) {
+      const storageRef = ref(
+        storage,
+        `images/${auth.currentUser.uid}/${image.current.files[0].name}`
+      );
+      uploadBytes(storageRef, image.current.files[0]).then((snapshot) => {
+        getDownloadURL(storageRef)
+          .then((url) => {
+            // firestoreに登録
+            storeImage(url);
+            image.current.value = "";
+          })
+          .catch((error) => console.log(error));
+      });
+    }
   };
 
   const getImages = async () => {
