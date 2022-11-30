@@ -39,15 +39,14 @@ const Index = () => {
     if (docSnap.exists()) {
       // 記事が存在したらセット
       setAuthor(docSnap.data());
-      console.log(docSnap.data());
     } else {
       alert("記者が取得できません");
     }
   };
 
   useEffect(() => {
-    getArticle();
-  }, [post_id]);
+    if (router.isReady) getArticle();
+  }, [post_id, router]);
 
   useEffect(() => {
     setMarkdownSource(article.content);

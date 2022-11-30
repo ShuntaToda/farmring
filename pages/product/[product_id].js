@@ -47,8 +47,8 @@ const Index = () => {
   };
 
   useEffect(() => {
-    getArticle();
-  }, [product_id]);
+    if (router.isReady) getArticle();
+  }, [product_id, router]);
 
   useEffect(() => {
     setMarkdownSource(product.content);

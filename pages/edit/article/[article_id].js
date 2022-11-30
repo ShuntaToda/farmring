@@ -139,8 +139,8 @@ const Post = () => {
   }, []);
 
   useEffect(() => {
-    getArticle();
-  }, [article_id]);
+    if (router.isReady) getArticle();
+  }, [article_id, router]);
 
   useEffect(() => {
     const tagsArray = tags.map((tag) => {
