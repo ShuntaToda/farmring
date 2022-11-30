@@ -23,7 +23,6 @@ const Profile = () => {
   const [userData, setUserData] = useState({});
   const [updateMessage, setUpdateMessage] = useState("");
   const [images, setImages] = useState([]);
-  const [thumbnail, setThumbnail] = useState("");
   const [isThumbnailSelect, setIsThumbnailSelect] = useState(false);
 
   const image = useRef(null);
@@ -71,7 +70,6 @@ const Profile = () => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      // 記事が存在したらセット
       setUserData(docSnap.data());
     } else {
       alert("ユーザーが取得できません");
@@ -81,10 +79,12 @@ const Profile = () => {
   useEffect(() => {
     if (user) {
       getUser();
+      console.log(userData);
     }
   }, [user]);
 
   const onSubmit = async () => {
+    console.log(userData);
     const washingtonRef = doc(db, "users", user.uid);
     try {
       await updateDoc(washingtonRef, userData);
@@ -94,6 +94,8 @@ const Profile = () => {
       console.error(err);
     }
   };
+
+  useEffect(() => {}, []);
   return (
     <Layout>
       {userData.name !== undefined ? (
@@ -209,6 +211,7 @@ const Profile = () => {
               <div className="d-flex">
                 <select
                   className="form-select"
+                  value={userData.tags.pref}
                   onChange={(e) => {
                     setUpdateMessage("");
                     setUserData((prev) => ({
@@ -225,6 +228,7 @@ const Profile = () => {
                 </select>
                 <select
                   className="form-select"
+                  value={userData.tags.city}
                   onChange={(e) => {
                     setUpdateMessage("");
                     setUserData((prev) => ({
