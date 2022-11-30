@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { db, auth, provider, storage } from "../lib/firebase";
 import { signInWithPopup, onAuthStateChanged, getAuth, GoogleAuthProvider } from "firebase/auth";
@@ -16,6 +16,7 @@ import {
 } from "firebase/firestore";
 const Login = () => {
   const [user] = useAuthState(auth);
+  const [userImage, setUserImage] = useState("");
 
   const login = () => {
     signInWithPopup(auth, provider)
@@ -41,6 +42,15 @@ const Login = () => {
       });
   };
 
+  const getUser = async (uid) => {
+    const docRef = doc(db, "users", uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      setUserImage(docSnap.data().image);
+    }
+  };
+
   const addUser = async () => {
     // ユーザー追加
     await setDoc(doc(db, "users", auth.currentUser.uid), {
@@ -57,7 +67,7 @@ const Login = () => {
 
   const userCheck = async () => {
     // ログインしているユーザーのuidが同じデータを取得
-    const userRef = doc(db, "users", auth.currentUser.uid);
+    const userRef = doc(db, "users", user.uid);
     const docSnap = await getDoc(userRef);
     if (docSnap.data() === undefined) {
       // 該当ユーザーがいなかったら新規登録
@@ -65,18 +75,27 @@ const Login = () => {
     }
   };
 
+  useEffect(() => {
+    if (user) {
+      console.log(user);
+      getUser(user.uid);
+    }
+  }, [user]);
+
   return (
     <>
       {user ? (
-        <div className="dropdown h-100">
+        <div className="dropdown h-100 c-login">
           <button
-            className="btn btn-light  dropdown-toggle h-100 d-block"
+            className="c-login__btn btn btn-light dropdown-toggle h-100 d-block"
             type="button"
             id="dropdownMenuButton1"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <img className="h-75 rounded-circle" src={auth.currentUser.photoURL}></img>
+            <div className="c-login__image">
+              <img className="" src={userImage}></img>
+            </div>
           </button>
           <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
             <li>
