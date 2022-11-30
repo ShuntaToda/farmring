@@ -6,9 +6,9 @@
       cursor: pointer;
       border-radius: 5px 5px 0 0;
       padding: 10px 20px 0px 20px;
-      background-color: $back-ground-primary;
+      background-color: #4ea50c57;
       &:nth-child(2) {
-        background-color: $back-ground-primary-dark;
+        background-color: #f7cc0b56;
       }
       &::after {
         content: "";
@@ -28,7 +28,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
-    background-color: $back-ground-primary;
+    background-color: #4ea50c57;
     > a {
       width: 100%;
       @media (min-width: 950px) {
@@ -37,7 +37,7 @@
     }
 
     &.shop {
-      background-color: $back-ground-primary-dark;
+      background-color: #f7cc0b56;
     }
   }
   &__article {

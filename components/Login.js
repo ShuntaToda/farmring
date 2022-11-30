@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 import { db, auth, provider, storage } from "../lib/firebase";
-import { signInWithPopup, onAuthStateChanged, getAuth, GoogleAuthProvider } from "firebase/auth";
+import {
+  signInWithPopup,
+  onAuthStateChanged,
+  getAuth,
+  GoogleAuthProvider,
+} from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
   addDoc,
@@ -77,7 +82,6 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       getUser(user.uid);
     }
   }, [user]);
@@ -97,9 +101,14 @@ const Login = () => {
               <img className="" src={userImage}></img>
             </div>
           </button>
-          <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+          <ul
+            className="dropdown-menu dropdown-menu-end"
+            aria-labelledby="dropdownMenuButton1"
+          >
             <li>
-              <h6 className="dropdown-header">{auth.currentUser.displayName}</h6>
+              <h6 className="dropdown-header">
+                {auth.currentUser.displayName}
+              </h6>
             </li>
             <li>
               <button className="dropdown-item" onClick={() => auth.signOut()}>
