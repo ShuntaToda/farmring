@@ -78,7 +78,7 @@ const Login = () => {
           >
             <img className="h-75 rounded-circle" src={auth.currentUser.photoURL}></img>
           </button>
-          <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
             <li>
               <h6 className="dropdown-header">{auth.currentUser.displayName}</h6>
             </li>
