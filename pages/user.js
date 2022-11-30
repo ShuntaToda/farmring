@@ -99,7 +99,7 @@ const User = () => {
                       </span>
                       <span>記事・商品編集</span>
                     </div>
-                    <ul className="dropdown-menu" aria-labelledby="#editItems">
+                    <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="#editItems">
                       <li>
                         <h6 className="dropdown-header">記事</h6>
                       </li>
