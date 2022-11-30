@@ -268,7 +268,7 @@ const Post = () => {
         <AddTag getTags={getTags}></AddTag>
         <div className="mb-3">
           <button className="btn btn-secondary" onClick={upload}>
-            送信
+            更新
           </button>
         </div>
         <div className="mb-4">{uploadMessage}</div>
