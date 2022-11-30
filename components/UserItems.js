@@ -37,7 +37,7 @@ const UserItems = ({ uid }) => {
   }, []);
   return (
     <div className="c-user-items">
-      <div className="c-user-items__head d-flex align-items-center justify-content-around">
+      <div className="c-user-items__head d-flex align-items-center justify-content-start">
         <span
           onClick={() => {
             setIsShowArticle(true);
@@ -52,7 +52,7 @@ const UserItems = ({ uid }) => {
           }}
           className={`${isShowArticle ? "" : "active"}`}
         >
-          商品
+          商品一覧
         </span>
       </div>
       <div className={`c-user-items__contents ${isShowArticle ? "" : "shop"}`}>

@@ -6,16 +6,17 @@ import Select from "react-select";
 import { Layout } from "../components/layout/Layout";
 import Article from "../components/Article";
 import { useRouter } from "next/router";
+import Product from "../components/Product";
 
 const Search = () => {
   const [tags, setTags] = useState([]);
   const [article, setArticles] = useState([]);
+  const [products, setProducts] = useState([]);
 
   const [tagsOption, setTagsOption] = useState([]);
 
   const router = useRouter();
   const defaultTag = router.query.tag;
-  console.log(defaultTag ? [defaultTag] : []);
   const [selectedTags, setSelectedTags] = useState(
     defaultTag ? [{ value: defaultTag, label: defaultTag }] : []
   );
@@ -36,7 +37,6 @@ const Search = () => {
   const getArticles = async (uploadTags) => {
     let q;
     q = query(collection(db, "posts"), where("tags", "array-contains-any", ["", ...uploadTags]));
-    console.log(uploadTags);
     const querySnapshot = await getDocs(q);
     let items = [];
 
@@ -46,6 +46,19 @@ const Search = () => {
     });
 
     items = getAuthor(items, setArticles);
+  };
+  const getProducts = async (uploadTags) => {
+    let q;
+    q = query(collection(db, "products"), where("tags", "array-contains-any", ["", ...uploadTags]));
+    const querySnapshot = await getDocs(q);
+    let items = [];
+
+    querySnapshot.forEach((doc) => {
+      // itemsにデータを挿入
+      items = [...items, { data: doc.data(), id: doc.id }];
+    });
+
+    items = getAuthor(items, setProducts);
   };
 
   const getTags = async () => {
@@ -68,17 +81,17 @@ const Search = () => {
     const tagsArray = tags.map((tag) => {
       return { value: tag.data.name, label: tag.data.name };
     });
-    console.log(selectedTags);
     setTagsOption(tagsArray);
     const uploadTags = selectedTags.map((tag) => {
       return tag.value;
     });
     getArticles(uploadTags);
+    getProducts(uploadTags);
   }, [tags, selectedTags]);
   return (
     <Layout>
       <div className="c-search mt-5 container">
-        <h2>検索</h2>
+        <h2>記事・商品検索</h2>
         <div className="mb-3">
           <Select
             value={selectedTags}
@@ -90,9 +103,21 @@ const Search = () => {
           ></Select>
         </div>
         <div className="c-search__content">
-          {article.map((art, index) => (
-            <Article article={art.data} author={art.author} id={art.id} key={art.id}></Article>
-          ))}
+          <div className="c-search__articles">
+            {article.map((art, index) => (
+              <Article article={art.data} author={art.author} id={art.id} key={art.id}></Article>
+            ))}
+          </div>
+          <div className="c-search__products">
+            {products.map((product, index) => (
+              <Product
+                product={product.data}
+                author={product.author}
+                id={product.id}
+                key={product.id}
+              ></Product>
+            ))}
+          </div>
         </div>
       </div>
     </Layout>

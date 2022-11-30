@@ -95,12 +95,12 @@ const Index = () => {
           </div>
         </div>
         <div className="c-product-buy text-center my-2">
-          <button className="btn btn-secondary">購入する</button>
+          <button className="btn btn-primary">購入する</button>
         </div>
         <div className="c-article__content container py-4">{articleContent}</div>
 
         <div className="c-product-buy  text-center my-2">
-          <button className="btn btn-secondary">購入する</button>
+          <button className="btn btn-primary">購入する</button>
         </div>
         <div className="c-article__footer py-4">
           <div className="container">
