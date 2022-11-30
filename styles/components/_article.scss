@@ -18,12 +18,13 @@
   &__content {
     h1 {
       font-size: 25px;
-    }
-    h2 {
-      font-size: 20px;
       position: relative;
       padding-left: 7px;
       font-weight: 500;
+      margin-bottom: 10px;
+      > p:last-child() {
+        padding-bottom: 40px;
+      }
       &::before {
         content: "";
         position: absolute;
@@ -34,20 +35,32 @@
         background-color: $primary;
       }
     }
+    h2 {
+      color: #3f6e1c !important;
+      font-size: 22px;
+      padding-left: 15px;
+
+      > p:last-child() {
+        padding-bottom: 20px;
+      }
+    }
     hr {
       margin-bottom: 50px;
     }
     .preview-0-2-9 > h3 {
-      color: $secondary !important;
+      color: #3f6e1c !important;
     }
     h3 {
-      color: $secondary !important;
       font-size: 18px;
-      padding-left: 5px;
+      padding-left: 15px;
+
+      > p:last-child() {
+        padding-bottom: 10px;
+      }
     }
+
     p {
       width: 100%;
-      padding-bottom: 40px;
       img {
         width: 100%;
         text-align: center;
