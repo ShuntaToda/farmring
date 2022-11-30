@@ -1,12 +1,7 @@
 import React, { useEffect } from "react";
 
 import { db, auth, provider, storage } from "../lib/firebase";
-import {
-  signInWithPopup,
-  onAuthStateChanged,
-  getAuth,
-  GoogleAuthProvider,
-} from "firebase/auth";
+import { signInWithPopup, onAuthStateChanged, getAuth, GoogleAuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
   addDoc,
@@ -26,7 +21,6 @@ const Login = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
-        console.log(result);
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         // The signed-in user info.
@@ -63,16 +57,13 @@ const Login = () => {
 
   const userCheck = async () => {
     // ログインしているユーザーのuidが同じデータを取得
-    const usersRef = collection(db, "users");
-    const q = query(usersRef, where("uid", "==", auth.currentUser.uid));
-    const userData = await getDocs(q);
-    if (userData.empty) {
+    const userRef = doc(db, "users", auth.currentUser.uid);
+    const docSnap = await getDoc(userRef);
+    if (docSnap.data() === undefined) {
       // 該当ユーザーがいなかったら新規登録
       addUser();
     }
   };
-
-  // onAuthStateChanged(getAuth(), userCheck);
 
   return (
     <>
@@ -85,16 +76,11 @@ const Login = () => {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <img
-              className="h-75 rounded-circle"
-              src={auth.currentUser.photoURL}
-            ></img>
+            <img className="h-75 rounded-circle" src={auth.currentUser.photoURL}></img>
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li>
-              <h6 className="dropdown-header">
-                {auth.currentUser.displayName}
-              </h6>
+              <h6 className="dropdown-header">{auth.currentUser.displayName}</h6>
             </li>
             <li>
               <button className="dropdown-item" onClick={() => auth.signOut()}>
