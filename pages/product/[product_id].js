@@ -78,12 +78,15 @@ const Index = () => {
             {product.tags ? (
               <>
                 {product.tags.map((tag, index) => (
-                  <span
+                  <Link
+                    href={{ pathname: "/search", query: { tag } }}
                     key={index}
-                    className="mx-1 py-1 px-3 bg-light rounded-pill border border-primary"
+                    className={
+                      "text-dark text-decoration-none mx-1 py-1 px-3 bg-light rounded-pill border border-primary"
+                    }
                   >
                     {tag}
-                  </span>
+                  </Link>
                 ))}
               </>
             ) : (
