@@ -7,6 +7,7 @@ import { Layout } from "../components/layout/Layout";
 import Article from "../components/Article";
 import { useRouter } from "next/router";
 import Product from "../components/Product";
+import Link from "next/link";
 
 const Search = () => {
   const [tags, setTags] = useState([]);
@@ -91,7 +92,12 @@ const Search = () => {
   return (
     <Layout>
       <div className="c-search mt-5 container">
-        <h2>記事・商品検索</h2>
+        <div className="d-flex justify-content-between">
+          <h2>記事・商品検索</h2>
+          <Link href="/search-user">
+            <div className="btn btn-outline-primary">ユーザー検索</div>
+          </Link>
+        </div>
         <div className="mb-3">
           <Select
             value={selectedTags}

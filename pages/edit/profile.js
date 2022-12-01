@@ -182,7 +182,7 @@ const Profile = () => {
               </div>
             </div>
             <div className="mb-3">
-              <label className="form-label">住所</label>
+              <label className="form-label">場所</label>
               <input
                 type="text"
                 className="form-control"
