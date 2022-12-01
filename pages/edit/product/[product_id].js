@@ -49,6 +49,7 @@ const Post = () => {
       setTitle(data.title);
       setContent(data.content);
       setThumbnail(data.image);
+      setPrice(data.price);
       setSelectedTags(data.tags.map((t) => ({ value: t, label: t })));
     } else {
       alert("商品が取得できません");
