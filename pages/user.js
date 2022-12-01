@@ -118,7 +118,10 @@ const User = () => {
                       </li>
                       {products.map((item, index) => (
                         <li key={index}>
-                          <Link href={""} className="dropdown-item text-dark text-decoration-none">
+                          <Link
+                            href={`/edit/product/${item.id}`}
+                            className="dropdown-item text-dark text-decoration-none"
+                          >
                             {item.data.title}
                           </Link>
                         </li>

@@ -28,6 +28,7 @@ const Post = () => {
   const [content, setContent] = useState("");
   const image = useRef(null);
   const [uploadMessage, setUploadMessage] = useState("");
+  const [price, setPrice] = useState("");
   const [images, setImages] = useState([]);
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -38,7 +39,7 @@ const Post = () => {
 
   const getArticle = async () => {
     // 記事取得
-    const docRef = doc(db, "posts", product_id);
+    const docRef = doc(db, "products", product_id);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -50,7 +51,7 @@ const Post = () => {
       setThumbnail(data.image);
       setSelectedTags(data.tags.map((t) => ({ value: t, label: t })));
     } else {
-      alert("記事が取得できません");
+      alert("商品が取得できません");
     }
   };
 
@@ -106,7 +107,7 @@ const Post = () => {
     const uploadTags = selectedTags.map((tag) => {
       return tag.value;
     });
-    const postsRef = doc(db, "posts", product_id);
+    const postsRef = doc(db, "products", product_id);
     try {
       const docRef = await updateDoc(postsRef, {
         title: title,
@@ -114,6 +115,7 @@ const Post = () => {
         image: thumbnail !== "" ? thumbnail : "https://placehold.jp/150x150.png",
         uid: auth.currentUser.uid,
         tags: uploadTags,
+        price: price,
         createdAt: new Date(),
       });
       setUploadMessage("更新されました。");
@@ -169,6 +171,16 @@ const Post = () => {
               表示
             </button>
           </div>
+        </div>
+        <div>
+          <label>値段</label>
+          <input
+            className="form-control"
+            type="number"
+            min={0}
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          ></input>
         </div>
         <div className="c-post__title">
           <label>タイトル</label>
