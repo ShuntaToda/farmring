@@ -29,7 +29,6 @@ const User = () => {
     if (docSnap.exists()) {
       // 記事が存在したらセット
       setUserData(docSnap.data());
-      console.log(docSnap.data());
     } else {
       alert("ユーザーが取得できません");
     }

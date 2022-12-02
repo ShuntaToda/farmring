@@ -30,7 +30,6 @@ const SearchUser = () => {
       items = [...items, { data: doc.data(), id: doc.id }];
     });
 
-    console.log(p, c);
     if (c === "0") {
       items = items.filter((item) => item.data.tags.pref === p);
     } else {

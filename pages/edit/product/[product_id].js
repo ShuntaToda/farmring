@@ -42,7 +42,6 @@ const Post = () => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      console.log(docSnap.data());
       const data = docSnap.data();
       setSelectedTags(data.tag);
       setTitle(data.title);
@@ -69,7 +68,7 @@ const Post = () => {
           storeImage(url);
           image.current.value = "";
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.error(error));
     });
   };
 

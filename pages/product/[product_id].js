@@ -18,7 +18,6 @@ const Index = () => {
 
   const getArticle = async () => {
     // 記事取得
-    console.log(product_id);
     const docRef = doc(db, "products", product_id);
     const docSnap = await getDoc(docRef);
 
@@ -40,7 +39,6 @@ const Index = () => {
     if (docSnap.exists()) {
       // 記事が存在したらセット
       setAuthor(docSnap.data());
-      console.log(docSnap.data());
     } else {
       alert("記者が取得できません");
     }

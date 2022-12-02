@@ -94,7 +94,6 @@ const UserItems = ({ uid }) => {
                     key={product.id}
                   >
                     <div className="c-user-items__product">
-                      {console.log(product)}
                       <div className="c-user-items__product-price">
                         <span>¥{product.data.price}</span>
                       </div>

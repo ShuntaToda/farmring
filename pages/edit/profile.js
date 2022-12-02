@@ -53,14 +53,13 @@ const Profile = () => {
         `images/${auth.currentUser.uid}/${image.current.files[0].name}`
       );
       uploadBytes(storageRef, image.current.files[0]).then((snapshot) => {
-        console.log(storageRef);
         getDownloadURL(storageRef)
           .then((url) => {
             // firestoreに登録
             storeImage(url);
             image.current.value = "";
           })
-          .catch((error) => console.log(error));
+          .catch((error) => console.error(error));
       });
     }
   };
@@ -79,12 +78,10 @@ const Profile = () => {
   useEffect(() => {
     if (user) {
       getUser();
-      console.log(userData);
     }
   }, [user]);
 
   const onSubmit = async () => {
-    console.log(userData);
     const washingtonRef = doc(db, "users", user.uid);
     try {
       await updateDoc(washingtonRef, userData);

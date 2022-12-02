@@ -40,7 +40,7 @@ const Post = () => {
             storeImage(url);
             image.current.value = "";
           })
-          .catch((error) => console.log(error));
+          .catch((error) => console.error(error));
       });
     }
   };
