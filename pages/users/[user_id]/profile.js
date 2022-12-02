@@ -13,6 +13,7 @@ const Profile = () => {
   const { user_id } = router.query;
 
   const [user, setUser] = useState({});
+  const [userId, setUserId] = useState("");
 
   const getUser = async () => {
     // ユーザー取得
@@ -28,8 +29,11 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    getUser();
-  }, [user_id]);
+    if (router.isReady) {
+      getUser();
+      setUserId(user_id);
+    }
+  }, [user_id, router]);
 
   return (
     <Layout>
@@ -42,14 +46,10 @@ const Profile = () => {
             <div className="c-profile__name">
               <h2>{user.name}</h2>
             </div>
-            <div className="c-profile__address">
-              {user.address ? user.address : "設定無し"}
-            </div>
-            <div className="c-profile__content">
-              {user.content ? user.content : "設定なし"}
-            </div>
+            <div className="c-profile__address">{user.address ? user.address : "設定無し"}</div>
+            <div className="c-profile__content">{user.content ? user.content : "設定なし"}</div>
           </div>
-          <UserItems uid={user_id}></UserItems>
+          {userId !== "" ? <UserItems uid={userId}></UserItems> : <></>}
         </div>
       ) : (
         <div>ユーザー情報がありません</div>

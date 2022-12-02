@@ -1,5 +1,8 @@
 .c-profile {
   &__edit {
+    &.show {
+      background-color: $secondary !important;
+    }
     span {
       display: block;
       &:nth-child(1) {

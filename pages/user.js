@@ -56,14 +56,13 @@ const User = () => {
     });
     setProducts(items);
   };
-  useEffect(() => {
-    getArticles();
-    getProducts();
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     if (user) {
       getUser();
+      getArticles();
+      getProducts();
     }
   }, [user]);
 
