@@ -26,7 +26,7 @@ const Login = () => {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        userCheck();
+        userCheck(result.user);
         // ...
       })
       .catch((error) => {
@@ -65,10 +65,11 @@ const Login = () => {
     });
   };
 
-  const userCheck = async () => {
+  const userCheck = async (resultUser) => {
     // ログインしているユーザーのuidが同じデータを取得
-    const userRef = doc(db, "users", user.uid);
+    const userRef = doc(db, "users", resultUser.uid);
     const docSnap = await getDoc(userRef);
+
     if (docSnap.data() === undefined) {
       // 該当ユーザーがいなかったら新規登録
       addUser();
